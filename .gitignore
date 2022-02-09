@@ -1,1 +1,11 @@
-/bin
+node_modules
+bin
+.env
+coverage
+coverage.json
+typechain
+yarn.lock
+
+#Hardhat files
+cache
+artifacts
