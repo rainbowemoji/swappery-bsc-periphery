@@ -35,6 +35,12 @@ const config: HardhatUserConfig = {
      }
     },
   networks: {
+    hardhat: {
+      forking: {
+        enabled: true,
+        url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+      },
+    },
     kovan: {
       url: process.env.KOVAN_URL || "",
       accounts:

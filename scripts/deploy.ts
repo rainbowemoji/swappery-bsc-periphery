@@ -6,7 +6,7 @@ async function main() {
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
   const factory = await ethers.getContractFactory("PancakeRouter");
-  const pancakeRouter = await factory.deploy("0xa111362B88a7358392d78Ad24F1E5AF9a9247023", "0xae13d989dac2f0debff460ac112a837c89baa7cd");
+  const pancakeRouter = await factory.deploy("0x514Aa4F0D941b82c90b1261677d66c8432D6Df1D", "0xae13d989dac2f0debff460ac112a837c89baa7cd");
 
   await pancakeRouter.deployed();
 
