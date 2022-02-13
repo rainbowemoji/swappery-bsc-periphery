@@ -30,10 +30,10 @@ const config: HardhatUserConfig = {
     version: "0.6.6",
     settings: {
       optimizer: {
-        enabled: true
-      }
-     }
+        enabled: true,
+      },
     },
+  },
   networks: {
     hardhat: {
       forking: {
@@ -57,8 +57,8 @@ const config: HardhatUserConfig = {
       gasPrice: 20000000000,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-        timeout: 100000
-    }
+      timeout: 100000,
+    },
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
@@ -66,6 +66,9 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: process.env.BSCSCAM_API_KEY,
+  },
+  mocha: {
+    timeout: 200000,
   },
 };
 

@@ -1,10 +1,10 @@
 pragma solidity >=0.5.0;
 
-import "../interfaces/IPancakePair.sol";
+import "../interfaces/ISwapperyPair.sol";
 
 import "./SafeMath.sol";
 
-library PancakeLibrary {
+library SwapperyLibrary {
   using SafeMath for uint256;
 
   // returns sorted token addresses, used to handle return values from pairs sorted in this order
@@ -13,9 +13,9 @@ library PancakeLibrary {
     pure
     returns (address token0, address token1)
   {
-    require(tokenA != tokenB, "PancakeLibrary: IDENTICAL_ADDRESSES");
+    require(tokenA != tokenB, "SwapperyLibrary: IDENTICAL_ADDRESSES");
     (token0, token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
-    require(token0 != address(0), "PancakeLibrary: ZERO_ADDRESS");
+    require(token0 != address(0), "SwapperyLibrary: ZERO_ADDRESS");
   }
 
   // calculates the CREATE2 address for a pair without making any external calls
@@ -32,7 +32,7 @@ library PancakeLibrary {
             hex"ff",
             factory,
             keccak256(abi.encodePacked(token0, token1)),
-            hex"d0d4c4cd0848c93cb4fd1f498d7013ee6bfb25783ea21593d5834f5d250ece66" // init code hash
+            hex"76d9acec7a079475ae8daaeb96d7e727787f0ab4b2e46907d89367048dd89083" // init code hash
           )
         )
       )
@@ -47,7 +47,7 @@ library PancakeLibrary {
   ) internal view returns (uint256 reserveA, uint256 reserveB) {
     (address token0, ) = sortTokens(tokenA, tokenB);
     pairFor(factory, tokenA, tokenB);
-    (uint256 reserve0, uint256 reserve1, ) = IPancakePair(
+    (uint256 reserve0, uint256 reserve1, ) = ISwapperyPair(
       pairFor(factory, tokenA, tokenB)
     ).getReserves();
     (reserveA, reserveB) = tokenA == token0
@@ -61,10 +61,10 @@ library PancakeLibrary {
     uint256 reserveA,
     uint256 reserveB
   ) internal pure returns (uint256 amountB) {
-    require(amountA > 0, "PancakeLibrary: INSUFFICIENT_AMOUNT");
+    require(amountA > 0, "SwapperyLibrary: INSUFFICIENT_AMOUNT");
     require(
       reserveA > 0 && reserveB > 0,
-      "PancakeLibrary: INSUFFICIENT_LIQUIDITY"
+      "SwapperyLibrary: INSUFFICIENT_LIQUIDITY"
     );
     amountB = amountA.mul(reserveB) / reserveA;
   }
@@ -75,10 +75,10 @@ library PancakeLibrary {
     uint256 reserveIn,
     uint256 reserveOut
   ) internal pure returns (uint256 amountOut) {
-    require(amountIn > 0, "PancakeLibrary: INSUFFICIENT_INPUT_AMOUNT");
+    require(amountIn > 0, "SwapperyLibrary: INSUFFICIENT_INPUT_AMOUNT");
     require(
       reserveIn > 0 && reserveOut > 0,
-      "PancakeLibrary: INSUFFICIENT_LIQUIDITY"
+      "SwapperyLibrary: INSUFFICIENT_LIQUIDITY"
     );
     uint256 amountInWithFee = amountIn.mul(998);
     uint256 numerator = amountInWithFee.mul(reserveOut);
@@ -92,10 +92,10 @@ library PancakeLibrary {
     uint256 reserveIn,
     uint256 reserveOut
   ) internal pure returns (uint256 amountIn) {
-    require(amountOut > 0, "PancakeLibrary: INSUFFICIENT_OUTPUT_AMOUNT");
+    require(amountOut > 0, "SwapperyLibrary: INSUFFICIENT_OUTPUT_AMOUNT");
     require(
       reserveIn > 0 && reserveOut > 0,
-      "PancakeLibrary: INSUFFICIENT_LIQUIDITY"
+      "SwapperyLibrary: INSUFFICIENT_LIQUIDITY"
     );
     uint256 numerator = reserveIn.mul(amountOut).mul(1000);
     uint256 denominator = reserveOut.sub(amountOut).mul(998);
@@ -108,7 +108,7 @@ library PancakeLibrary {
     uint256 amountIn,
     address[] memory path
   ) internal view returns (uint256[] memory amounts) {
-    require(path.length >= 2, "PancakeLibrary: INVALID_PATH");
+    require(path.length >= 2, "SwapperyLibrary: INVALID_PATH");
     amounts = new uint256[](path.length);
     amounts[0] = amountIn;
     for (uint256 i; i < path.length - 1; i++) {
@@ -127,7 +127,7 @@ library PancakeLibrary {
     uint256 amountOut,
     address[] memory path
   ) internal view returns (uint256[] memory amounts) {
-    require(path.length >= 2, "PancakeLibrary: INVALID_PATH");
+    require(path.length >= 2, "SwapperyLibrary: INVALID_PATH");
     amounts = new uint256[](path.length);
     amounts[amounts.length - 1] = amountOut;
     for (uint256 i = path.length - 1; i > 0; i--) {

@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.5.0;
 
-interface IPancakePair {
+interface ISwapperyPair {
   event Approval(address indexed owner, address indexed spender, uint256 value);
   event Transfer(address indexed from, address indexed to, uint256 value);
 
@@ -88,7 +88,9 @@ interface IPancakePair {
 
   function mint(address to) external returns (uint256 liquidity);
 
-  function burn(address to) external returns (uint256 amount0, uint256 amount1);
+  function burn(address to, address sender)
+    external
+    returns (uint256 amount0, uint256 amount1);
 
   function swap(
     uint256 amount0Out,
@@ -102,4 +104,12 @@ interface IPancakePair {
   function sync() external;
 
   function initialize(address, address) external;
+
+  function setLockDays(uint256 _days) external;
+
+  function AMM() external view returns (address);
+
+  function AMMM() external view returns (address);
+
+  function ALT() external view returns (address);
 }

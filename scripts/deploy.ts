@@ -5,15 +5,19 @@ async function main() {
   console.log("Deploying contracts with the account:", deployer.address);
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  const factory = await ethers.getContractFactory("PancakeRouter");
-  const pancakeRouter = await factory.deploy("0x514Aa4F0D941b82c90b1261677d66c8432D6Df1D", "0xae13d989dac2f0debff460ac112a837c89baa7cd");
+  const factory = await ethers.getContractFactory("SwapperyRouter");
+  const SwapperyRouter = await factory.deploy(
+    "0x37F0319f36cF6899752F04Ce441e48D806F4a98d",
+    "0xae13d989dac2f0debff460ac112a837c89baa7cd"
+  );
 
-  await pancakeRouter.deployed();
+  await SwapperyRouter.deployed();
 
-  console.log("PancakeRouter deployed to:", pancakeRouter.address);
+  console.log("SwapperyRouter deployed to:", SwapperyRouter.address);
 }
-main().then(
-  ()=> process.exit(0)).catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
