@@ -35,29 +35,25 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
-    hardhat: {
-      forking: {
-        enabled: true,
-        url: "https://data-seed-prebsc-1-s1.binance.org:8545/",
-      },
-    },
-    kovan: {
-      url: process.env.KOVAN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
-    ropsten: {
-      url: process.env.ROPSTEN_URL || "",
-      accounts:
-        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-    },
     bsctest: {
       url: process.env.BSCTEST_URL || "",
       chainId: 97,
-      gasPrice: 20000000000,
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-      timeout: 100000,
+        timeout: 100000
+    },
+    bsc: {
+      url: process.env.BSCMAIN_URL || "",
+      chainId: 56,
+      accounts:
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
+        timeout: 100000
+    },
+    hardhat: {
+      forking: {
+        enabled: true,
+        url: process.env.BSCTEST_URL || "",
+      },
     },
   },
   gasReporter: {
@@ -65,10 +61,7 @@ const config: HardhatUserConfig = {
     currency: "USD",
   },
   etherscan: {
-    apiKey: process.env.BSCSCAM_API_KEY,
-  },
-  mocha: {
-    timeout: 200000,
+    apiKey: process.env.BSCSCAN_API || ""
   },
 };
 

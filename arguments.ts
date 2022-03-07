@@ -1,4 +1,4 @@
 module.exports = [
-  "0x37F0319f36cF6899752F04Ce441e48D806F4a98d",
-  "0xae13d989dac2f0debff460ac112a837c89baa7cd",
+  "0x5b0153b45B0984638F3D49c28b1484138C758fCC", // _factory address
+  "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd", // _wbnb address
 ];

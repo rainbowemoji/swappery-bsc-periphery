@@ -32,7 +32,7 @@ library SwapperyLibrary {
             hex"ff",
             factory,
             keccak256(abi.encodePacked(token0, token1)),
-            hex"76d9acec7a079475ae8daaeb96d7e727787f0ab4b2e46907d89367048dd89083" // init code hash
+            hex"9312cfdb36f86fb7dd0608653c3176c40441e4e97b7c9dbb25619c878db3ca50" // init code hash
           )
         )
       )

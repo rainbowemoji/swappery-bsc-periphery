@@ -7,8 +7,8 @@ async function main() {
 
   const factory = await ethers.getContractFactory("SwapperyRouter");
   const SwapperyRouter = await factory.deploy(
-    "0x37F0319f36cF6899752F04Ce441e48D806F4a98d",
-    "0xae13d989dac2f0debff460ac112a837c89baa7cd"
+    "0x37F0319f36cF6899752F04Ce441e48D806F4a98d", // _factory address
+    "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"  // _wbnb address
   );
 
   await SwapperyRouter.deployed();
