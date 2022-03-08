@@ -3,10 +3,10 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { Address } from "hardhat-deploy/dist/types";
 import {
-  IPancakeFactory,
-  PancakeRouter,
+  ISwapperyFactory,
+  SwapperyRouter,
   ERC20,
-  IPancakePair,
+  ISwapperyPair,
 } from "../typechain";
 
 // Defaults to e18 using amount * 10^18
@@ -18,13 +18,13 @@ function getBigNumber(amount: number, decimals = 18) {
 
 describe("Router", function () {
   let token1: ERC20;
-  let router: PancakeRouter;
+  let router: SwapperyRouter;
 
   let admin: SignerWithAddress;
   let addrs: SignerWithAddress[];
   let weth: Address;
-  let pair: IPancakePair;
-  let factory: IPancakeFactory;
+  let pair: ISwapperyPair;
+  let factory: ISwapperyFactory;
   before(async () => {
     [admin, ...addrs] = await ethers.getSigners();
     console.log("admin: ", admin.address);
@@ -32,7 +32,7 @@ describe("Router", function () {
       console.log("addrs" + index + ":", item.address)
     );
     let Token1 = await ethers.getContractFactory("ERC20");
-    let Router = await ethers.getContractFactory("PancakeRouter");
+    let Router = await ethers.getContractFactory("SwapperyRouter");
 
     token1 = await Token1.deploy(getBigNumber(100));
     router = await Router.deploy(
@@ -41,7 +41,7 @@ describe("Router", function () {
     );
     weth = await router.WETH();
     factory = await ethers.getContractAt(
-      "IPancakeFactory",
+      "ISwapperyFactory",
       "0xC3f8189E069a09BE6863Bc9008cA00630a01DbC1" // factory
     );
     console.log("router address: ", router.address);
@@ -62,7 +62,7 @@ describe("Router", function () {
     let result = await tx.wait();
 
     pair = await ethers.getContractAt(
-      "IPancakePair",
+      "ISwapperyPair",
       await factory.getPair(token1.address, weth)
     );
     console.log("pair address: ", pair.address);
